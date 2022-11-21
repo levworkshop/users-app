@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Header from './components/Header';
+import Table, { IUser } from './components/Table';
+
+export enum StatusEnum {
+    active = 'active',
+    expired = 'expired',
+    banned = 'banned'
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [users, setUsers] = useState<Array<IUser>>([]);
+
+    function addUser(newUser: IUser) {
+        newUser.id = (new Date()).getTime();
+        const updated = [...users, newUser];
+        setUsers(updated);
+    }
+
+    return (
+        <>
+            <Header setUsers={addUser} />
+            <Table users={users} />
+        </>
+    );
 }
 
 export default App;
