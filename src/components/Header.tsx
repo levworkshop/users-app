@@ -12,12 +12,20 @@ function Header({ updateUsers }: Props) {
 
     const statusList = Object.values(StatusEnum);
 
+    function clearFields() {
+        setName('');
+        setEmail('');
+        setStatus(StatusEnum.active);
+    }
+
     function handleClick() {
         updateUsers({
             name,
             email,
             status
         });
+
+        clearFields();
     }
 
     return (
