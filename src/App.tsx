@@ -18,10 +18,15 @@ function App() {
         setUsers(updated);
     }
 
+    function deleteUser(userId: number) {
+        const updated = users.filter(user => user.id !== userId);
+        setUsers(updated);
+    }
+
     return (
         <>
-            <Header setUsers={addUser} />
-            <Table users={users} />
+            <Header updateUsers={addUser} />
+            <Table users={users} deleteUser={deleteUser} />
         </>
     );
 }

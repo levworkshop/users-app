@@ -2,10 +2,10 @@ import { useState } from "react";
 import { StatusEnum } from "../App";
 
 interface Props {
-    setUsers: Function;
+    updateUsers: Function;
 }
 
-function Header({ setUsers }: Props) {
+function Header({ updateUsers }: Props) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [status, setStatus] = useState(StatusEnum.active);
@@ -13,7 +13,7 @@ function Header({ setUsers }: Props) {
     const statusList = Object.values(StatusEnum);
 
     function handleClick() {
-        setUsers({
+        updateUsers({
             name,
             email,
             status

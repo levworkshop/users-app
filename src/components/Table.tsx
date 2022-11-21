@@ -10,9 +10,10 @@ export interface IUser {
 
 interface Props {
     users: Array<IUser>;
+    deleteUser: Function;
 }
 
-function Table({ users }: Props) {
+function Table({ users, deleteUser }: Props) {
     return (
         <table className="table table-hover">
             <thead>
@@ -33,7 +34,10 @@ function Table({ users }: Props) {
                             </td>
                             <td>{user.email}</td>
                             <td>
-                                <button className="btn btn-light">
+                                <button
+                                    onClick={() => deleteUser(user.id)}
+                                    className="btn btn-light"
+                                >
                                     <i className="bi-trash"></i>
                                 </button>
                             </td>
