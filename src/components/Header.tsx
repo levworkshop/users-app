@@ -1,3 +1,4 @@
+import Joi from "joi";
 import { useState } from "react";
 import { StatusEnum } from "../App";
 
@@ -19,6 +20,23 @@ function Header({ updateUsers }: Props) {
     }
 
     function handleClick() {
+        //data validation
+
+        const scheme = Joi.object({
+            name: Joi.string().required().min(2),
+            email: Joi.string().email().required()
+        });
+
+        if (!name || name.length === 0) {
+            return;
+        }
+
+        if (!email || email.length === 0) {
+            return;
+        }
+
+        const re = "/^[\w-]+(\.[\w-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/i";
+
         updateUsers({
             name,
             email,

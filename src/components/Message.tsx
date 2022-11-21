@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 interface Props {
-    // text: string;
+    // text?: string;
     type: 'warning' | 'success' | 'info'; // ...
     showMode?: boolean;
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 function Message({ type, showMode = true, children }: Props) {
