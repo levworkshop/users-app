@@ -1,12 +1,13 @@
 import { useState } from "react";
 
 interface Props {
-    text: string;
+    // text: string;
     type: 'warning' | 'success' | 'info'; // ...
     showMode?: boolean;
+    children: React.ReactNode;
 }
 
-function Message({ text, type, showMode = true }: Props) {
+function Message({ type, showMode = true, children }: Props) {
     const [show, setShow] = useState(showMode);
 
     function getCssByType(): string {
@@ -29,7 +30,8 @@ function Message({ text, type, showMode = true }: Props) {
             className={`alert ${getCssByType()} my-2 ${handleShow()} alert-dismissible`}
             role="alert"
         >
-            {text}
+            {children}
+
             <button
                 onClick={() => setShow(false)}
                 type="button"
