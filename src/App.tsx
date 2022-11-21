@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import Header from './components/Header';
+import Message from './components/Message';
 import Table, { IUser } from './components/Table';
 
 export enum StatusEnum {
@@ -26,6 +27,23 @@ function App() {
     return (
         <>
             <Header updateUsers={addUser} />
+            {
+                users.length === 0 &&
+                <Message
+                    text="No users to display"
+                    type="warning"
+                />
+
+            }
+            {/* {
+                users.length === 0 ?
+                    (
+                        <p>No users to display</p>
+                    ) :
+                    (
+                        <Table users={users} deleteUser={deleteUser} />
+                    )
+            } */}
             <Table users={users} deleteUser={deleteUser} />
         </>
     );
