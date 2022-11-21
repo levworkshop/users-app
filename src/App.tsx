@@ -12,11 +12,13 @@ export enum StatusEnum {
 
 function App() {
     const [users, setUsers] = useState<Array<IUser>>([]);
+    const [userAdded, setUserAdded] = useState(false);
 
     function addUser(newUser: IUser) {
         newUser.id = (new Date()).getTime();
         const updated = [...users, newUser];
         setUsers(updated);
+        setUserAdded(true);
     }
 
     function deleteUser(userId: number) {
@@ -33,7 +35,14 @@ function App() {
                     text="No users to display"
                     type="warning"
                 />
-
+            }
+            {
+                userAdded &&
+                <Message
+                    text="New user has been added"
+                    type="success"
+                    showMode={userAdded}
+                />
             }
             {/* {
                 users.length === 0 ?
