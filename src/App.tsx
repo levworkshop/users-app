@@ -13,6 +13,7 @@ export enum StatusEnum {
 function App() {
     const [users, setUsers] = useState<Array<IUser>>([]);
     const [newUser, setNewUser] = useState<IUser>();
+    const [deletedUser, setDeletedUser] = useState<IUser>();
 
     function addUser(newUser: IUser) {
         newUser.id = (new Date()).getTime();
@@ -21,14 +22,15 @@ function App() {
         setUsers(updated);
     }
 
-    function deleteUser(userId: number) {
-        const updated = users.filter(user => user.id !== userId);
+    function deleteUser(userDel: IUser) {
+        const updated = users.filter(user => user.id !== userDel.id);
         setUsers(updated);
+        setDeletedUser(userDel);
     }
 
     return (
         <>
-            <Header updateUsers={addUser} />
+            <Header addUser={addUser} />
             {
                 users.length === 0 &&
                 <Message
@@ -47,6 +49,16 @@ function App() {
                     New user: <span className="fw-bold">
                         {newUser?.name}
                     </span>, has been added successfully.
+                </Message>
+            }
+            {
+                deletedUser &&
+                <Message
+                    type="success"
+                >
+                    User <span className="fw-bold">
+                        {deletedUser?.name}
+                    </span>, has been deleted.
                 </Message>
             }
 

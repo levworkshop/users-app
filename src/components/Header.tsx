@@ -3,10 +3,10 @@ import { useState } from "react";
 import { StatusEnum } from "../App";
 
 interface Props {
-    updateUsers: Function;
+    addUser: Function;
 }
 
-function Header({ updateUsers }: Props) {
+function Header({ addUser }: Props) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [status, setStatus] = useState(StatusEnum.active);
@@ -22,16 +22,6 @@ function Header({ updateUsers }: Props) {
 
     function handleClick() {
         //data validation
-        // if (!name || name.length === 0) {
-        //     return;
-        // }
-
-        // if (!email || email.length === 0) {
-        //     return;
-        // }
-
-        // const re = "/^[\w-]+(\.[\w-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/i";
-
         const schema = Joi.object().keys({
             name: Joi.string().required().min(2),
             email: Joi.string().required().email({ tlds: { allow: false } })
@@ -46,7 +36,7 @@ function Header({ updateUsers }: Props) {
 
         setError('');
 
-        updateUsers({
+        addUser({
             name,
             email,
             status

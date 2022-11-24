@@ -35,7 +35,7 @@ function Table({ users, deleteUser }: Props) {
                             <td>{user.email}</td>
                             <td>
                                 <button
-                                    onClick={() => deleteUser(user.id)}
+                                    onClick={() => deleteUser(user)}
                                     className="btn btn-light btn-sm"
                                 >
                                     <i className="bi-trash"></i>
