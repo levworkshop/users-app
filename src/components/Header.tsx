@@ -1,4 +1,4 @@
-// import Joi from "joi";
+import Joi from "joi";
 import { useState } from "react";
 import { StatusEnum } from "../App";
 
@@ -10,6 +10,7 @@ function Header({ updateUsers }: Props) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [status, setStatus] = useState(StatusEnum.active);
+    const [error, setError] = useState<string>();
 
     const statusList = Object.values(StatusEnum);
 
@@ -21,21 +22,29 @@ function Header({ updateUsers }: Props) {
 
     function handleClick() {
         //data validation
+        // if (!name || name.length === 0) {
+        //     return;
+        // }
 
-        // const scheme = Joi.object({
-        //     name: Joi.string().required().min(2),
-        //     email: Joi.string().email().required()
-        // });
-
-        if (!name || name.length === 0) {
-            return;
-        }
-
-        if (!email || email.length === 0) {
-            return;
-        }
+        // if (!email || email.length === 0) {
+        //     return;
+        // }
 
         // const re = "/^[\w-]+(\.[\w-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/i";
+
+        const schema = Joi.object().keys({
+            name: Joi.string().required().min(2),
+            email: Joi.string().required().email({ tlds: { allow: false } })
+        });
+
+        const { error } = schema.validate({ name, email });
+
+        if (error) {
+            setError(error.message);
+            return;
+        }
+
+        setError('');
 
         updateUsers({
             name,
@@ -47,49 +56,58 @@ function Header({ updateUsers }: Props) {
     }
 
     return (
-        <div className="bg-light d-flex p-4 justify-content-between align-items-center">
-            <h5 className="m-0">Users</h5>
-            <div className="d-flex">
-                <input
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="form-control"
-                    type="text"
-                    placeholder="Full Name"
-                />
+        <>
+            <div className="bg-light d-flex p-4 justify-content-between align-items-center">
+                <h5 className="m-0">Users</h5>
+                <div className="d-flex">
+                    <input
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className="form-control"
+                        type="text"
+                        placeholder="Full Name"
+                    />
 
-                <input
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="form-control mx-3"
-                    type="text"
-                    placeholder="Email"
-                />
+                    <input
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="form-control mx-3"
+                        type="text"
+                        placeholder="Email"
+                    />
 
-                <select
-                    className="form-select"
-                    value={status}
-                    onChange={(e) => setStatus(e.target.value as StatusEnum)}
-                >
-                    {
-                        statusList.map(status =>
-                            <option
-                                key={status}
-                                value={status}>
-                                {status}
-                            </option>
-                        )
-                    }
-                </select>
+                    <select
+                        className="form-select"
+                        value={status}
+                        onChange={(e) => setStatus(e.target.value as StatusEnum)}
+                    >
+                        {
+                            statusList.map(status =>
+                                <option
+                                    key={status}
+                                    value={status}>
+                                    {status}
+                                </option>
+                            )
+                        }
+                    </select>
 
-                <button
-                    onClick={handleClick}
-                    className="btn btn-info ms-3"
-                >
-                    Add
-                </button>
+                    <button
+                        onClick={handleClick}
+                        className="btn btn-info ms-3"
+                    >
+                        Add
+                    </button>
+                </div>
             </div>
-        </div>
+
+            {
+                error &&
+                <div className="text-danger">
+                    {error}
+                </div>
+            }
+        </>
     );
 }
 

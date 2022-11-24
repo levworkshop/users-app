@@ -17,8 +17,8 @@ function App() {
     function addUser(newUser: IUser) {
         newUser.id = (new Date()).getTime();
         const updated = [...users, newUser];
-        setUsers(updated);
         setNewUser(newUser);
+        setUsers(updated);
     }
 
     function deleteUser(userId: number) {
@@ -34,23 +34,22 @@ function App() {
                 <Message
                     type="warning"
                 >
-                    <p>
+                    <div>
                         No users to display
-                    </p>
+                    </div>
                 </Message>
             }
             {
+                newUser &&
                 <Message
                     type="success"
-                    showMode={!!newUser}
                 >
-                    New user:
-                    <span className="text-bold">
+                    New user: <span className="fw-bold">
                         {newUser?.name}
-                    </span>
-                    has been added
+                    </span>, has been added successfully.
                 </Message>
             }
+
             {/* {
                 users.length === 0 ?
                     (

@@ -1,14 +1,13 @@
 import { useState } from "react";
+import { IUser } from "./Table";
 
 interface Props {
-    // text?: string;
     type: 'warning' | 'success' | 'info'; // ...
-    showMode?: boolean;
     children?: React.ReactNode;
 }
 
-function Message({ type, showMode = true, children }: Props) {
-    const [show, setShow] = useState(showMode);
+function Message({ type, children }: Props) {
+    // const [show, setShow] = useState(showMode);
 
     function getCssByType(): string {
         switch (type) {
@@ -21,24 +20,24 @@ function Message({ type, showMode = true, children }: Props) {
         }
     }
 
-    function handleShow(): string {
-        return show ? 'd-block' : 'd-none';
-    }
+    // function handleShow(): string {
+    //     return show ? 'd-block' : 'd-none';
+    // }
 
     return (
         <div
-            className={`alert ${getCssByType()} my-2 ${handleShow()} alert-dismissible`}
+            className={`alert ${getCssByType()} my-2 alert-dismissible`}
             role="alert"
         >
             {children}
 
-            <button
+            {/* <button
                 onClick={() => setShow(false)}
                 type="button"
                 className="btn-close"
                 data-bs-dismiss="alert"
                 aria-label="Close"
-            ></button>
+            ></button> */}
         </div>
     );
 }
