@@ -35,32 +35,32 @@ function App() {
                 users.length === 0 &&
                 <Message
                     type="warning"
+                    showButton={false}
                 >
                     <div>
                         No users to display
                     </div>
                 </Message>
             }
-            {
-                newUser &&
-                <Message
-                    type="success"
-                >
-                    New user: <span className="fw-bold">
-                        {newUser?.name}
-                    </span>, has been added successfully.
-                </Message>
-            }
-            {
-                deletedUser &&
-                <Message
-                    type="success"
-                >
-                    User <span className="fw-bold">
-                        {deletedUser?.name}
-                    </span>, has been deleted.
-                </Message>
-            }
+            <Message
+                type="success"
+                user={newUser}
+                showButton={true}
+            >
+                New user: <span className="fw-bold">
+                    {newUser?.name}
+                </span>, has been added successfully.
+            </Message>
+
+            <Message
+                type="success"
+                user={deletedUser}
+                showButton={true}
+            >
+                User <span className="fw-bold">
+                    {deletedUser?.name}
+                </span>, has been deleted.
+            </Message>
 
             {/* {
                 users.length === 0 ?
