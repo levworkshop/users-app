@@ -36,7 +36,7 @@ function Table({ users, deleteUser }: Props) {
                             <td>
                                 <button
                                     onClick={() => deleteUser(user.id)}
-                                    className="btn btn-light"
+                                    className="btn btn-light btn-sm"
                                 >
                                     <i className="bi-trash"></i>
                                 </button>

@@ -1,4 +1,4 @@
-import Joi from "joi";
+// import Joi from "joi";
 import { useState } from "react";
 import { StatusEnum } from "../App";
 
@@ -22,10 +22,10 @@ function Header({ updateUsers }: Props) {
     function handleClick() {
         //data validation
 
-        const scheme = Joi.object({
-            name: Joi.string().required().min(2),
-            email: Joi.string().email().required()
-        });
+        // const scheme = Joi.object({
+        //     name: Joi.string().required().min(2),
+        //     email: Joi.string().email().required()
+        // });
 
         if (!name || name.length === 0) {
             return;
@@ -35,7 +35,7 @@ function Header({ updateUsers }: Props) {
             return;
         }
 
-        const re = "/^[\w-]+(\.[\w-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/i";
+        // const re = "/^[\w-]+(\.[\w-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/i";
 
         updateUsers({
             name,
@@ -47,8 +47,8 @@ function Header({ updateUsers }: Props) {
     }
 
     return (
-        <div className="bg-light d-flex p-4 justify-content-between">
-            <h5>Users</h5>
+        <div className="bg-light d-flex p-4 justify-content-between align-items-center">
+            <h5 className="m-0">Users</h5>
             <div className="d-flex">
                 <input
                     value={name}
