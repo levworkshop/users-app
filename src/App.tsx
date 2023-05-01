@@ -1,5 +1,6 @@
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
+import Status from './components/Status';
 
 function App() {
     return (
@@ -15,12 +16,12 @@ function App() {
                 <tbody>
                     <tr>
                         <td>Mark Otto</td>
-                        <td><span className="badge text-bg-success">Active</span></td>
+                        <td><Status /></td>
                         <td>mark@mdo.com</td>
                     </tr>
                     <tr>
                         <td>Larisa Smith</td>
-                        <td><span className="badge text-bg-success">Active</span></td>
+                        <td><Status /></td>
                         <td>larisa@mdo.com</td>
                     </tr>
                 </tbody>
