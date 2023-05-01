@@ -2,9 +2,11 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
 import Status from './components/Status';
 
+export type StatusType = "Active" | "Expired" | "Banned";
+
 export interface UserTypes {
     fullName: string;
-    status: "Active" | "Expired" | "Banned";
+    status: StatusType;
     email: string;
 }
 
@@ -47,7 +49,7 @@ function App() {
                         data.map(user =>
                             <tr>
                                 <td>{user.fullName}</td>
-                                <td><Status /></td>
+                                <td><Status type={user.status} /></td>
                                 <td>{user.email}</td>
                             </tr>
                         )
