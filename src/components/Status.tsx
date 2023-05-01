@@ -19,7 +19,6 @@ function getStatusColor(type: StatusType): string {
 
 function Status({ type }: StatusProps) {
     return (
-        // <span className="badge text-bg-success">
         <span className={`badge ${getStatusColor(type)}`}>
             {type}
         </span>
