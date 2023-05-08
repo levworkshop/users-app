@@ -2,6 +2,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
 import Status from './components/Status';
 import { useState } from 'react';
+import AddUserForm from './components/AddUserForm';
 
 // export type StatusType = "Active" | "Expired" | "Banned";
 export enum StatusEnum {
@@ -45,99 +46,27 @@ export interface UserTypes {
 // ];
 
 function App() {
-    const statusList = Object.values(StatusEnum); // ['active', 'expired', 'banned']
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [statusField, setStatusField] = useState(StatusEnum.active);
     const [users, setUsers] = useState<Array<UserTypes>>([]);
-    const [error, setError] = useState('');
 
     // function handleClick(user: UserTypes) {
     //     console.log(`${user.fullName} ${user.status}`);
     // }
 
-    function validate(): boolean {
-        if (!name || name.length < 2 && !email || email.length === 0) {
-            setError('name and email are required, name must be at least 2 characters');
-            return false;
-        }
-
-        const emailRe = /[a-z0-9\._%+!$&*=^|~#%'`?{}/\-]+@([a-z0-9\-]+\.){1,}([a-z]{2,16})/;
-        if (!emailRe.test(email)) {
-            setError('invalid email');
-            return false;
-        }
-
-        setError('');
-        return true;
-    }
-
-    function addUser() {
-        if (!validate()) {
-            return;
-        }
-
+    function addUser(newUser: UserTypes) {
         setUsers([
             ...users,
             {
+                ...newUser,
                 id: users.length,
-                fullName: name,
-                status: statusField,
-                email,
             }
         ]);
-
-        setName('');
-        setEmail('');
-        setStatusField(StatusEnum.active);
     }
 
     return (
         <div className="bg-light m-4">
-            <div className="d-flex justify-content-between align-items-center p-4">
-                <h5>Users</h5>
-                <input
-                    className="form-control"
-                    type="text"
-                    placeholder="Full Name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                />
-
-                <input
-                    className="form-control"
-                    type="text"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-
-                <select
-                    className="form-select"
-                    value={statusField}
-                    onChange={(e) => setStatusField(e.target.value as StatusEnum)}
-                >
-                    {statusList.map(status =>
-                        <option
-                            key={status}
-                            value={status}
-                        >
-                            {status}
-                        </option>
-                    )}
-                </select>
-
-                <button
-                    className="btn btn-info ms-3"
-                    onClick={addUser}
-                >
-                    Add
-                </button>
-            </div>
-            {
-                error && <div className="text-danger">{error}</div>
-            }
-
+            <AddUserForm
+                onAdd={addUser}
+            />
 
             <table className="table w-50 border border-dark table-hover">
                 <thead>
