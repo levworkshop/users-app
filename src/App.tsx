@@ -3,6 +3,7 @@ import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
 import Status from './components/Status';
 import { useState } from 'react';
 import AddUserForm from './components/AddUserForm';
+import Table from './components/Table';
 
 // export type StatusType = "Active" | "Expired" | "Banned";
 export enum StatusEnum {
@@ -68,32 +69,9 @@ function App() {
                 onAdd={addUser}
             />
 
-            <table className="table w-50 border border-dark table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">Full Name</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        users.map((user: UserTypes) =>
-                            <tr key={user.id}>
-                                <td>
-                                    {/* <button
-                                        onClick={() => handleClick(user)}
-                                    > */}
-                                    {user.fullName}
-                                    {/* </button> */}
-                                </td>
-                                <td><Status type={user.status} /></td>
-                                <td>{user.email}</td>
-                            </tr>
-                        )
-                    }
-                </tbody>
-            </table>
+            <Table
+                users={users}
+            />
         </div>
     );
 }
