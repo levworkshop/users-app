@@ -1,16 +1,16 @@
-import { StatusType } from "../App";
+import { StatusEnum } from "../App";
 
 interface StatusProps {
-    type: StatusType;
+    type: StatusEnum;
 }
 
-function getStatusColor(type: StatusType): string {
+function getStatusColor(type: StatusEnum): string {
     switch (type) {
-        case "Active":
+        case StatusEnum.active:
             return "text-bg-success";
-        case "Expired":
+        case StatusEnum.expired:
             return "text-bg-warning";
-        case "Banned":
+        case StatusEnum.banned:
             return "text-bg-danger";
         default:
             return "text-bg-secondary";

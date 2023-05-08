@@ -2,12 +2,17 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
 import Status from './components/Status';
 
-export type StatusType = "Active" | "Expired" | "Banned";
+// export type StatusType = "Active" | "Expired" | "Banned";
+export enum StatusEnum {
+    active = 'active',
+    expired = 'expired',
+    banned = 'banned'
+}
 
 export interface UserTypes {
     id: number;
     fullName: string;
-    status: StatusType;
+    status: StatusEnum;
     email: string;
 }
 
@@ -15,36 +20,73 @@ const data: Array<UserTypes> = [
     {
         id: 1,
         fullName: "Leeav",
-        status: 'Active',
+        status: StatusEnum.active,
         email: "lee@getMaxListeners.com"
     },
     {
         id: 2,
         fullName: "Itai",
-        status: "Active",
+        status: StatusEnum.active,
         email: "itai@getMaxListeners.com"
     },
     {
         id: 3,
         fullName: "Einat",
-        status: "Expired",
+        status: StatusEnum.expired,
         email: "Einat@getMaxListeners.com"
     },
     {
         id: 4,
         fullName: "Nati",
-        status: "Banned",
+        status: StatusEnum.banned,
         email: "nati@getMaxListeners.com"
     }
 ];
 
 function App() {
+    const statusList = Object.values(StatusEnum); // ['active', 'expired', 'banned']
+
     function handleClick(user: UserTypes) {
         console.log(`${user.fullName} ${user.status}`);
     }
 
     return (
         <div className="bg-light m-4">
+            <div className="d-flex justify-content-between align-items-center p-4">
+                <h5>Users</h5>
+                <input
+                    className="form-control"
+                    type="text"
+                    placeholder="Full Name"
+                />
+
+                <input
+                    className="form-control"
+                    type="text"
+                    placeholder="Email"
+                />
+
+                <select
+                    className="form-select"
+                >
+                    {statusList.map(status =>
+                        <option
+                            key={status}
+                            value={status}
+                        >
+                            {status}
+                        </option>
+                    )}
+                </select>
+
+                <button
+                    className="btn btn-info ms-3"
+                >
+                    Add
+                </button>
+            </div>
+
+
             <table className="table w-50 border border-dark table-hover">
                 <thead>
                     <tr>
@@ -58,9 +100,11 @@ function App() {
                         data.map(user =>
                             <tr key={user.id}>
                                 <td>
-                                    <button onClick={() => handleClick(user)}>
-                                        {user.fullName}
-                                    </button>
+                                    {/* <button
+                                        onClick={() => handleClick(user)}
+                                    > */}
+                                    {user.fullName}
+                                    {/* </button> */}
                                 </td>
                                 <td><Status type={user.status} /></td>
                                 <td>{user.email}</td>
