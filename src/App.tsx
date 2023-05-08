@@ -50,12 +50,33 @@ function App() {
     const [email, setEmail] = useState('');
     const [statusField, setStatusField] = useState(StatusEnum.active);
     const [users, setUsers] = useState<Array<UserTypes>>([]);
+    const [error, setError] = useState('');
 
     // function handleClick(user: UserTypes) {
     //     console.log(`${user.fullName} ${user.status}`);
     // }
 
+    function validate(): boolean {
+        if (!name || name.length < 2 && !email || email.length === 0) {
+            setError('name and email are required, name must be at least 2 characters');
+            return false;
+        }
+
+        const emailRe = /[a-z0-9\._%+!$&*=^|~#%'`?{}/\-]+@([a-z0-9\-]+\.){1,}([a-z]{2,16})/;
+        if (!emailRe.test(email)) {
+            setError('invalid email');
+            return false;
+        }
+
+        setError('');
+        return true;
+    }
+
     function addUser() {
+        if (!validate()) {
+            return;
+        }
+
         setUsers([
             ...users,
             {
@@ -113,6 +134,9 @@ function App() {
                     Add
                 </button>
             </div>
+            {
+                error && <div className="text-danger">{error}</div>
+            }
 
 
             <table className="table w-50 border border-dark table-hover">
