@@ -1,6 +1,7 @@
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
 import Status from './components/Status';
+import { useState } from 'react';
 
 // export type StatusType = "Active" | "Expired" | "Banned";
 export enum StatusEnum {
@@ -45,6 +46,9 @@ const data: Array<UserTypes> = [
 
 function App() {
     const statusList = Object.values(StatusEnum); // ['active', 'expired', 'banned']
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [statusField, setStatusField] = useState(StatusEnum.active);
 
     function handleClick(user: UserTypes) {
         console.log(`${user.fullName} ${user.status}`);
@@ -58,16 +62,22 @@ function App() {
                     className="form-control"
                     type="text"
                     placeholder="Full Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                 />
 
                 <input
                     className="form-control"
                     type="text"
                     placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
 
                 <select
                     className="form-select"
+                    value={statusField}
+                    onChange={(e) => setStatusField(e.target.value as StatusEnum)}
                 >
                     {statusList.map(status =>
                         <option
