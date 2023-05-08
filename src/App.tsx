@@ -17,41 +17,58 @@ export interface UserTypes {
     email: string;
 }
 
-const data: Array<UserTypes> = [
-    {
-        id: 1,
-        fullName: "Leeav",
-        status: StatusEnum.active,
-        email: "lee@getMaxListeners.com"
-    },
-    {
-        id: 2,
-        fullName: "Itai",
-        status: StatusEnum.active,
-        email: "itai@getMaxListeners.com"
-    },
-    {
-        id: 3,
-        fullName: "Einat",
-        status: StatusEnum.expired,
-        email: "Einat@getMaxListeners.com"
-    },
-    {
-        id: 4,
-        fullName: "Nati",
-        status: StatusEnum.banned,
-        email: "nati@getMaxListeners.com"
-    }
-];
+// const data: Array<UserTypes> = [
+//     {
+//         id: 1,
+//         fullName: "Leeav",
+//         status: StatusEnum.active,
+//         email: "lee@getMaxListeners.com"
+//     },
+//     {
+//         id: 2,
+//         fullName: "Itai",
+//         status: StatusEnum.active,
+//         email: "itai@getMaxListeners.com"
+//     },
+//     {
+//         id: 3,
+//         fullName: "Einat",
+//         status: StatusEnum.expired,
+//         email: "Einat@getMaxListeners.com"
+//     },
+//     {
+//         id: 4,
+//         fullName: "Nati",
+//         status: StatusEnum.banned,
+//         email: "nati@getMaxListeners.com"
+//     }
+// ];
 
 function App() {
     const statusList = Object.values(StatusEnum); // ['active', 'expired', 'banned']
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [statusField, setStatusField] = useState(StatusEnum.active);
+    const [users, setUsers] = useState<Array<UserTypes>>([]);
 
-    function handleClick(user: UserTypes) {
-        console.log(`${user.fullName} ${user.status}`);
+    // function handleClick(user: UserTypes) {
+    //     console.log(`${user.fullName} ${user.status}`);
+    // }
+
+    function addUser() {
+        setUsers([
+            ...users,
+            {
+                id: users.length,
+                fullName: name,
+                status: statusField,
+                email,
+            }
+        ]);
+
+        setName('');
+        setEmail('');
+        setStatusField(StatusEnum.active);
     }
 
     return (
@@ -91,6 +108,7 @@ function App() {
 
                 <button
                     className="btn btn-info ms-3"
+                    onClick={addUser}
                 >
                     Add
                 </button>
@@ -107,7 +125,7 @@ function App() {
                 </thead>
                 <tbody>
                     {
-                        data.map(user =>
+                        users.map((user: UserTypes) =>
                             <tr key={user.id}>
                                 <td>
                                     {/* <button
