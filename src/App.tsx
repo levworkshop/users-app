@@ -49,10 +49,6 @@ export interface UserTypes {
 function App() {
     const [users, setUsers] = useState<Array<UserTypes>>([]);
 
-    // function handleClick(user: UserTypes) {
-    //     console.log(`${user.fullName} ${user.status}`);
-    // }
-
     function addUser(newUser: UserTypes) {
         setUsers([
             ...users,
@@ -63,6 +59,11 @@ function App() {
         ]);
     }
 
+    function deleteUser(userId: number) {
+        const updated = users.filter(user => user.id !== userId);
+        setUsers([...updated]);
+    }
+
     return (
         <div className="bg-light m-4">
             <AddUserForm
@@ -71,6 +72,7 @@ function App() {
 
             <Table
                 users={users}
+                onDelete={deleteUser}
             />
         </div>
     );

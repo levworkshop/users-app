@@ -2,10 +2,11 @@ import { UserTypes } from "../App";
 import Status from "./Status";
 
 interface Props {
-    users: Array<UserTypes>
+    users: Array<UserTypes>,
+    onDelete: Function;
 }
 
-function Table({ users }: Props) {
+function Table({ users, onDelete }: Props) {
     return (
         <table className="table w-50 border border-dark table-hover">
             <thead>
@@ -24,7 +25,10 @@ function Table({ users }: Props) {
                             <td><Status type={user.status} /></td>
                             <td>{user.email}</td>
                             <td>
-                                <button className="btn btn-light">
+                                <button
+                                    className="btn btn-light"
+                                    onClick={() => onDelete(user.id)}
+                                >
                                     <i className="bi bi-trash"></i>
                                 </button>
                             </td>
