@@ -43,7 +43,14 @@ function App() {
                 onAdd={addUser}
             />
 
-            <Message />
+            <Message
+                type="warning">
+                message 1 <span>aaa</span>
+            </Message>
+
+            <Message type="success">
+                another text <a href='#'>aa</a>
+            </Message>
 
             <Table
                 users={users}
