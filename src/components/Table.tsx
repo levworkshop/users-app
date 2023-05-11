@@ -27,7 +27,7 @@ function Table({ users, onDelete }: Props) {
                             <td>
                                 <button
                                     className="btn btn-light"
-                                    onClick={() => onDelete(user.id)}
+                                    onClick={() => onDelete(user.id, user.fullName)}
                                 >
                                     <i className="bi bi-trash"></i>
                                 </button>

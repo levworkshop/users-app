@@ -1,11 +1,14 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 
 interface Props {
     type: 'warning' | 'success' | 'info'; // ...
     children: ReactNode;
+    onClose?: Function;
 }
 
-function Message({ type, children }: Props) {
+function Message({ type, children, onClose }: Props) {
+    const [show, setShow] = useState(true);
+
     function getCssByType(): string {
         switch (type) {
             case "warning":
@@ -19,20 +22,31 @@ function Message({ type, children }: Props) {
         }
     }
 
-    return (
-        <div
-            className={`alert ${getCssByType()} my-2 alert-dismissible`}
-            role="alert"
-        >
-            {children}
+    function handleClick() {
+        setShow(false);
+        if (onClose) onClose();
+    }
 
-            <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="alert"
-                aria-label="Close"
-            />
-        </div>
+    return (
+        <>
+            {
+                show &&
+                <div
+                    className={`alert ${getCssByType()} my-2 alert-dismissible`}
+                    role="alert"
+                >
+                    {children}
+
+                    <button
+                        onClick={handleClick}
+                        type="button"
+                        className="btn-close"
+                        data-bs-dismiss="alert"
+                        aria-label="Close"
+                    />
+                </div>
+            }
+        </>
     );
 }
 

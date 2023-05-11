@@ -18,9 +18,12 @@ export interface UserTypes {
     email: string;
 }
 
+type Action = 'add' | 'delete';
 
 function App() {
     const [users, setUsers] = useState<Array<UserTypes>>([]);
+    const [userName, setUserName] = useState('');
+    const [lastAction, setLastAction] = useState<Action | undefined>();
 
     function addUser(newUser: UserTypes) {
         setUsers([
@@ -30,11 +33,21 @@ function App() {
                 id: users.length,
             }
         ]);
+
+        setUserName(newUser.fullName);
+        setLastAction('add');
     }
 
-    function deleteUser(userId: number) {
+    function deleteUser(userId: number, name: string) {
         const updated = users.filter(user => user.id !== userId);
         setUsers([...updated]);
+        setUserName(name);
+        setLastAction('delete');
+    }
+
+    function resetAction() {
+        setUserName('');
+        setLastAction(undefined);
     }
 
     return (
@@ -43,14 +56,31 @@ function App() {
                 onAdd={addUser}
             />
 
-            <Message
-                type="warning">
-                message 1 <span>aaa</span>
-            </Message>
-
-            <Message type="success">
-                another text <a href='#'>aa</a>
-            </Message>
+            {
+                users.length === 0 &&
+                <Message type="warning">
+                    No users to display.
+                </Message>
+            }
+            {
+                userName &&
+                <Message type="success" onClose={resetAction}>
+                    {
+                        lastAction === 'add' &&
+                        <>
+                            New user: <span className="fw-bold">{userName}</span>
+                            , has been added successfully.
+                        </>
+                    }
+                    {
+                        lastAction === 'delete' &&
+                        <>
+                            User <span className="fw-bold">{userName}</span>,
+                            has been deleted.
+                        </>
+                    }
+                </Message>
+            }
 
             <Table
                 users={users}
