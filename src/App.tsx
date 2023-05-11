@@ -3,6 +3,7 @@ import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
 import { useState } from 'react';
 import AddUserForm from './components/AddUserForm';
 import Table from './components/Table';
+import Message from './components/Message';
 
 export enum StatusEnum {
     active = 'active',
@@ -41,6 +42,8 @@ function App() {
             <AddUserForm
                 onAdd={addUser}
             />
+
+            <Message />
 
             <Table
                 users={users}
